@@ -1,2 +1,2 @@
-# pbo
-modul pemrograman berbasis objek
+# kecerdasanbuatan
+Modul Praktikum Kecerdasan Buatan

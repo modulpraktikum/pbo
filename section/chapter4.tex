@@ -1,0 +1,211 @@
+\chapter{Import}
+\section{Import File dalam folder}
+\par Bagi yang sudah berpengalaman terjun di dunia computer programming, mereka sudah biasa mengelola banyak file kode. Tentunya banyak file program yang kita temui tidak hanya memiliki satu file script saja. Mereka memisahkan script fungsi ataupun class untuk mempermudah debug, refactor code dan memperjelas struktur kode mereka. Cara ini disebut dengan Modularisasi. Hal yang sangat saya rasakan dari keuntungan modularisasi ini adalah kita menjadi tidak perlu mengubah banyak kode untuk hal pengembangan atau perubahan sistem program kita. Di python, cara meng-import file nya terdapat banyak cara. Namun kita akan menggunakan cara yang lebih sederhana dan mudah.
+\subsection{Cara import dalam direktori yang sama.}
+Misalkan kita sedang berada di direktori kerja bernama ‘project’. Kita memiliki suatu program utama bernama ‘Main.py’ dan file lain bernama ‘KumpulanFungsi.py’. Susunannya seperti ini:
+\begin{lstlisting}
+- project
+  |____ Main.py
+  |____ KumpulanFungsi.py
+\end{lstlisting}
+\par \textbf{Di dalam script KumpulanFungsi.py berisi:}
+\begin{lstlisting}
+def perkalian(x,y):
+   return x * y
+
+def pembagian(x,y):
+   return x / y
+
+def pertambahan(x,y):
+   return x + y
+
+def pengurangan(x,y):
+   return x - y
+\end{lstlisting}
+\par\textbf{Untuk menggunakan fungsi-fungsi di Main.py, maka cara importnya adalah seperti ini}:
+\begin{lstlisting}
+#Cara import seluruh isi file
+from KumpulanFungsi import *
+
+print pertambahan(10,12)
+print pengurangan(20,9)
+print pembagian(21,3)
+print perkalian(6,6)
+\end{lstlisting}
+\par \textbf{Atau mengimport function/class yang dibutuhkan saja, untuk tujuan menghemat memori atau membatasi proses yang tidak dibutuhkan. Cara nya seperti ini}:
+\begin{lstlisting}
+#Cara import satuan function/class
+from KumpulanFungsi import pertambahan
+
+print pertambahan(21,24)
+
+#Cara import beberapa function/class
+from KumpulanFungsi import perkalian, pembagian
+
+print pertambahan(perkalian(2,2),pembagian(12,3))
+\end{lstlisting}
+\subsection{Cara import di direktori yang berbeda}
+Untuk import dari direktori yang berbeda, python membutuhkan suatu file kosong bernama \_\_init\_\_.py’ di dalam direktori yang berisi file yang akan digunakan. Masih di kasus sebelumnya, kita menambahkan suatu folder baru bernama KumpulanKelas, yang berisi file ‘Kucing.py’ dan ‘Ayam.py’. Maka susunannya akan seperti ini:
+\begin{lstlisting}
+- project
+  |____ KumpulanKelas
+        |____ Kucing.py
+        |____ Ayam.py
+        |____ __init__.py
+  |____ Main.py
+  |____ KumpulanFungsi.py
+\end{lstlisting}
+\par \textbf{File Kucing.py berisi}:
+\begin{lstlisting}
+class Kucing(object):
+   def suara(self):
+       print "Meow!"
+   def jenis(self):
+       print "Mamalia"
+\end{lstlisting}
+\par \textbf{File Ayam.py berisi }:
+\begin{lstlisting}
+class Ayam(object):
+   def suara(self):
+      print "Kukuruyuk!"
+   def jenis(self):
+      print "Unggas"
+\end{lstlisting}
+\par\textbf{Maka cara importnya seperti berikut}:
+\begin{lstlisting}
+#Cara import semua function/kelas dari file di direktori lain
+from KumpulanKelas.Kucing import *
+
+Morganisa = Kucing()
+Morganisa.suara()
+Morganisa.jenis()
+
+#Cara import satu function/kelas dari file di direktori lain
+from KumpulanKelas.Ayam import Ayam
+
+Pelung = Ayam()
+Pelung.suara()
+Pelung.jenis()
+\end{lstlisting}
+Dari kode di atas, from KumpulanKelas.Kucing dimaksud dengan susunan direktori dari terluar sampai nama file yang ingin digunakan.
+\newpage \section{Import Library}
+\textbf{Berikut 5 library data scientist:}
+\begin{enumerate}
+    \item \textbf{Scipy}
+   \par Kegunaanya adalah untuk menangani operasi aljabar dan matriks serta operasi matematika lainya. Disini kamu dapat menangani sejumlah operasi matematika yang lebih kompleks daripada menggunakan library math bawaan Python. Ada juga beberapa fungsi statistika dasar yang dimiliki oleh Scipy.
+    \begin{lstlisting}
+>>> import numpy as np
+>>> from scipy import linalg
+>>> A = np.array([[1,2],[3,4]])
+>>> A
+array([[1, 2],
+      [3, 4]])
+>>> linalg.inv(A)
+array([[-2. ,  1. ],
+      [ 1.5, -0.5]])
+>>> b = np.array([[5,6]]) #2D array
+>>> b
+array([[5, 6]])
+>>> b.T
+array([[5],
+      [6]])
+>>> A*b #not matrix multiplication!
+array([[ 5, 12],
+      [15, 24]])
+>>> A.dot(b.T) #matrix multiplication
+array([[17],
+      [39]])
+>>> b = np.array([5,6]) #1D array
+>>> b
+array([5, 6])
+>>> b.T  #not matrix transpose!
+array([5, 6])
+>>> A.dot(b)  #does not matter for multiplication
+array([17, 39])
+2. Numpy
+\end{lstlisting}
+\item \textbf{Numpy}
+\par Numpy memiliki kegunaan untuk operasi vektor dan matriks. Fiturnya hampir sama dengan MATLAB dalam mengelola array dan array multidimensi. Numpy merupakan salah satu library yang digunakan oleh library lain seperti Scikit-Learn untuk keperluan analisis data.
+\begin{lstlisting}
+>>> x = np.array([[1, 2, 3], [4, 5, 6]], np.int32)
+>>> type(x)
+<type 'numpy.ndarray'>
+>>> x.shape
+(2, 3)
+>>> x.dtype
+dtype('int32')
+\end{lstlisting}
+\item \textbf{Pandas}
+\par Dengan menggunakan sistem dataframe, kamu dapat memuat sebuah file ke dalam tabel virtual ala spreadsheet dengan menggunakan Pandas. Dengan menggunakan Pandas, kamu dapat mengolah suatu data dan mengolahnya seperti join, distinct, group by, agregasi, dan teknik seperti pada SQL. Hanya saja dilakukan pada tabel yang dimuat dari file ke RAM.
+
+Pandas juga dapat membaca file dari berbagai format seperti .txt, .csv, .tsv, dan lainnya. Anggap saja Pandas adalah spreadsheet namun tidak memiliki GUI dan punya fitur seperti SQL.
+\begin{lstlisting}
+import pandas as pd
+pd.set_option('display.mpl_style', 'default') # Make the graphs a bit prettier
+figsize(15, 5)
+broken_df = pd.read_csv('../data/bikes.csv')
+# Look at the first 3 rows
+broken_df[:3]
+\end{lstlisting}
+\item \textbf{Matplotlib}
+\par Data yang kita olah tentu tidak elok apabila ditampilkan begitu saja dengan tabel hitam saja kepada investor atau manajemen. Bila ditampilkan dengan sejumlah grafik berwarna pasti mereka akan lebih tertarik melihatnya. Matplotlib membantu kamu untuk memvisualisasikan data dengan lebih indah dan rapi.
+
+Ada plot untuk menampilkan data secara 2D atau 3D. Sehingga kamu dapat menampilkan data yang telah kamu olah sesuai kebutuhan. Matplotlib pun terintegrasi dengan iPython Notebook atau Jupyter dimana kamu dapat membuat sebuah buku interaktif yang dapat diberi penjelasan dan kode yang disisipkan begitupun hasil plottingnya.
+
+Matplotlib adalah library paling banyak digunakan oleh data science untuk menyajikan datanya ke dalam visual yang lebih baik.
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+plt.plot([1,2,3,4])
+plt.ylabel('some numbers')
+plt.show()
+\end{lstlisting}
+\item \textbf{Scikit-Learn}
+\par Machine learning ada yang berbasis statistika ada juga yang tidak. Salah satunya adalah support vector machine dan regresi linier. Mungkin bagi sebagian orang sudah biasa menulis sendiri library untuk implementasi kedua algoritma tadi. Tapi untuk membuatnya dalam waktu singkat tentu butuh waktu yang tidak sedikit pula.
+
+Scikit-Learn memberikan sejumlah fitur untuk keperluan data science seperti:
+
+Algoritma Regresi
+Algoritma Naive Bayes
+Algoritma Clustering
+Algoritma Decision Tree
+Parameter Tuning
+Data Preprocessing Tool
+Export / Import Model
+Machine learning pipeline
+dan lainnya
+Scikit-Learn sudah teruji dan memiliki dokumentasi yang super lengkap. Bahkan kontributornya pun banyak. Scikit-Learn pun menyediakan ekstensi untuk fuzzy logic dan computer vision.
+ \begin{lstlisting}
+$ python
+>>> from sklearn import datasets
+>>> iris = datasets.load_iris()
+>>> digits = datasets.load_digits()
+>>> print(digits.data)  
+[[  0.   0.   5. ...,   0.   0.   0.]
+ [  0.   0.   0. ...,  10.   0.   0.]
+ [  0.   0.   0. ...,  16.   9.   0.]
+ ...,
+ [  0.   0.   1. ...,   6.   0.   0.]
+ [  0.   0.   2. ...,  12.   0.   0.]
+ [  0.   0.  10. ...,  12.   1.   0.]]
+>>> digits.target
+array([0, 1, 2, ..., 8, 9, 8])
+>>> digits.images[0]
+array([[  0.,   0.,   5.,  13.,   9.,   1.,   0.,   0.],
+       [  0.,   0.,  13.,  15.,  10.,  15.,   5.,   0.],
+       [  0.,   3.,  15.,   2.,   0.,  11.,   8.,   0.],
+       [  0.,   4.,  12.,   0.,   0.,   8.,   8.,   0.],
+       [  0.,   5.,   8.,   0.,   0.,   9.,   8.,   0.],
+       [  0.,   4.,  11.,   0.,   1.,  12.,   7.,   0.],
+       [  0.,   2.,  14.,   5.,  10.,  12.,   0.,   0.],
+       [  0.,   0.,   6.,  13.,  10.,   0.,   0.,   0.]])
+>>> from sklearn import svm
+>>> clf = svm.SVC(gamma=0.001, C=100.)
+>>> clf.fit(digits.data[:-1], digits.target[:-1])  
+SVC(C=100.0, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape='ovr', degree=3, gamma=0.001, kernel='rbf',
+  max_iter=-1, probability=False, random_state=None, shrinking=True,
+  tol=0.001, verbose=False)
+>>> clf.predict(digits.data[-1:])
+array([8])
+\end{lstlisting}
+\end{enumerate}
