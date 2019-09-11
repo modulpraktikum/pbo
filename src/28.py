@@ -1,0 +1,2 @@
+penampung = namaClass()
+penampung.namaMetode()

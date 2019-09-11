@@ -1,0 +1,1 @@
+Luas segitiga: 12.000000
