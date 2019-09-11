@@ -1,0 +1,1 @@
+Luas persegi: 36

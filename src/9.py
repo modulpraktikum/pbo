@@ -1,0 +1,1 @@
+salam("Selamat siang")
